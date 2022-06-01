@@ -2,6 +2,40 @@
   text-align: center;
 }
 
+.weatherContainer {
+  background-image: url(/public/bigWeatherPup.jpg);
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  max-width: 950px;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  text-align: start;
+}
+
+.currentDay {
+  font-size: 2rem;
+}
+.currentTemp {
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+.currentCity {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.currentHumidity,
+.currentWeatherDesc {
+  font-size: 1.3rem;
+}
+
 /* .App-logo {
   height: 40vmin;
   pointer-events: none;

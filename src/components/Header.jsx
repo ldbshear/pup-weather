@@ -1,10 +1,15 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
+
+import Navbar from "react-bootstrap/Navbar";
 
 export default function Header() {
   return (
     <>
-      <Button variant="outline-success">Success</Button>
+      <Navbar bg="light" className="mb-5">
+        <Navbar.Brand className="mx-auto">
+          <h1>Weather Pup</h1>
+        </Navbar.Brand>
+      </Navbar>
     </>
   );
 }
