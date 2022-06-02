@@ -11,6 +11,8 @@ import CurrentWeather from "./CurrentWeather";
 import DateNTime from "./DateNTime";
 //import GeoLocation from "./GeoLocation";
 
+import { BiHomeHeart } from "@react-icons/all-files/fa/FaBeer";
+
 export default function WeatherCard() {
   const [userCity, showUserCity] = useState("");
   const [location, showLocation] = useState("");
@@ -36,6 +38,11 @@ export default function WeatherCard() {
   function updateLocation(event) {
     showUserCity(event.target.value);
   }
+
+  function handleCurrentClick() {
+    console.log("click click");
+  }
+
   function requestData(userCity) {
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=4d52faf0671d8976c45e49132852bc77&units=metric`;
     //Forecast let url = `https://api.openweathermap.org/data/2.5/forecast?q=${userCity}&appid=4d52faf0671d8976c45e49132852bc77&units=metric`;
@@ -68,6 +75,7 @@ export default function WeatherCard() {
         className=""
       >
         <InputGroup className="mb-3 w-50 mx-auto">
+          <BiHomeHeart />
           <FormControl
             size="lg"
             type="text"
@@ -79,14 +87,6 @@ export default function WeatherCard() {
             aria-label="Enter city"
             aria-describedby="basic-addon2"
           />
-          <Button
-            onClick=""
-            variant="outline-info"
-            id="button-addon2"
-            type="submit"
-          >
-            Current
-          </Button>
           <Button variant="outline-info" id="button-addon2" type="submit">
             Search
           </Button>
@@ -96,8 +96,8 @@ export default function WeatherCard() {
       <Container>
         <Row className="justify-content-center">
           <Card className="weatherContainer shadow">
-            <DateNTime />
             <Card.Body>
+              <DateNTime />
               <Row className="currentWeatherContainer ">
                 <CurrentWeather
                   currentTemp={`${Math.floor(weatherConditions.temp)}°C`}

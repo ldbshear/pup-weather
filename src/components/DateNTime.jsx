@@ -1,5 +1,4 @@
 import React from "react";
-import { Card } from "react-bootstrap";
 
 export default function DateNTime() {
   const weatherTime = new Date();
@@ -33,7 +32,9 @@ export default function DateNTime() {
   month = monthNames[weatherTime.getMonth()];
   return (
     <>
-      <Card.Header>{`${day} ${month} ${date} `}</Card.Header>
+      <ul>
+        <li className="mt-3">{`${day} ${month} ${date} `}</li>
+      </ul>
     </>
   );
 }
