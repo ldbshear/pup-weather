@@ -6,11 +6,12 @@ export default function Footer() {
       <footer className="mastfoot mt-5">
         <div className="inner">
           <p>
-            Code at <a href="https://getbootstrap.com/">Github</a>, by{" "}
-            <a href="https://twitter.com/mdo">Louisa</a>.
+            Code at <a href="https://github.com/ldbshear/pup-weather">Github</a>
+            , by{" "}
+            <a href="https://darling-longma-31a9601.netlify.app/">Louisa</a>.
           </p>
         </div>
       </footer>
     </>
   );
-}
+}g
