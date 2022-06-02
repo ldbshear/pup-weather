@@ -8,6 +8,7 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import CurrentWeather from "./CurrentWeather";
+//import GeoLocation from "./GeoLocation";
 
 export default function WeatherCard() {
   const [userCity, showUserCity] = useState("");
@@ -15,20 +16,28 @@ export default function WeatherCard() {
   const [weatherConditions, getWeatherConditions] = useState({
     temp: "",
     weatherDesc: "",
+    icon: "",
+    humidity: "",
+    wind: "",
   });
 
   function getWeather(response) {
+    console.log(response);
     getWeatherConditions({
       temp: response.data.main.temp,
       weatherDesc: response.data.weather[0].main,
+      icon: response.data.weather[0].icon,
+      humidity: response.data.main.humidity,
+      wind: response.data.wind.speed,
     });
   }
 
   function updateLocation(event) {
     showUserCity(event.target.value);
   }
-  function requestData() {
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=4bcd69482e48eff55262cb4ddf9efad9&units=metric`;
+  function requestData(userCity) {
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=4d52faf0671d8976c45e49132852bc77&units=metric`;
+    //Forecast let url = `https://api.openweathermap.org/data/2.5/forecast?q=${userCity}&appid=4d52faf0671d8976c45e49132852bc77&units=metric`;
 
     axios
       .get(url)
@@ -53,6 +62,7 @@ export default function WeatherCard() {
           event.preventDefault();
           console.log("submitted");
           showLocation(userCity);
+          requestData(userCity);
         }}
         className=""
       >
@@ -73,19 +83,20 @@ export default function WeatherCard() {
           </Button>
         </InputGroup>
       </Form>
+
       <Container>
         <Row className="justify-content-center">
-          <Card className="weatherContainer">
+          <Card className="weatherContainer shadow">
             <Card.Body>
               <Row className="currentWeatherContainer">
                 <CurrentWeather
                   day="Sunday"
-                  currentTemp={weatherConditions.temp}
+                  currentTemp={`${Math.floor(weatherConditions.temp)}°C`}
                   currentLocation={location}
                   currentWeatherDesc={weatherConditions.weatherDesc}
-                  icon="🌞"
-                  currentHumidity="20%"
-                  currentWind="8mph"
+                  icon={`http://openweathermap.org/img/w/${weatherConditions.icon}.png`}
+                  currentHumidity={`${weatherConditions.humidity}% Humidity`}
+                  currentWind={`${weatherConditions.wind} MPH wind speed`}
                 />
               </Row>
               <Row className="forecastWeatherContainer">Weather Forecast</Row>

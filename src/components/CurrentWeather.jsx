@@ -15,7 +15,7 @@ export default function CurrentWeather(props) {
               <li className="currentCity">{props.currentLocation}</li>
               <li className="currentWeatherDesc">{props.currentWeatherDesc}</li>
               <li>
-                <img src={props.icon} alt="" />
+                <img className="icon" src={props.icon} alt="" />
               </li>
               <li className="currentHumidity">{props.currentHumidity}</li>
               <li className="currentWind">{props.currentWind}</li>

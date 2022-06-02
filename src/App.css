@@ -23,12 +23,15 @@ li {
   font-size: 2rem;
 }
 .currentTemp {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   font-weight: 500;
 }
 .currentCity {
   font-size: 1.5rem;
   font-weight: 700;
+}
+.icon {
+  width: 80px;
 }
 
 .currentHumidity,
