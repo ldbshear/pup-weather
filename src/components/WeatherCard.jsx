@@ -8,6 +8,7 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import CurrentWeather from "./CurrentWeather";
+import DateNTime from "./DateNTime";
 //import GeoLocation from "./GeoLocation";
 
 export default function WeatherCard() {
@@ -89,6 +90,7 @@ export default function WeatherCard() {
           <Card className="weatherContainer shadow">
             <Card.Body>
               <Row className="currentWeatherContainer">
+                <DateNTime />
                 <CurrentWeather
                   day="Sunday"
                   currentTemp={`${Math.floor(weatherConditions.temp)}°C`}
