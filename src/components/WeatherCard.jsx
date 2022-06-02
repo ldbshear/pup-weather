@@ -79,8 +79,16 @@ export default function WeatherCard() {
             aria-label="Enter city"
             aria-describedby="basic-addon2"
           />
+          <Button
+            onClick=""
+            variant="outline-info"
+            id="button-addon2"
+            type="submit"
+          >
+            Current
+          </Button>
           <Button variant="outline-info" id="button-addon2" type="submit">
-            Enter
+            Search
           </Button>
         </InputGroup>
       </Form>
@@ -88,11 +96,10 @@ export default function WeatherCard() {
       <Container>
         <Row className="justify-content-center">
           <Card className="weatherContainer shadow">
+            <DateNTime />
             <Card.Body>
-              <Row className="currentWeatherContainer">
-                <DateNTime />
+              <Row className="currentWeatherContainer ">
                 <CurrentWeather
-                  day="Sunday"
                   currentTemp={`${Math.floor(weatherConditions.temp)}°C`}
                   currentLocation={location}
                   currentWeatherDesc={weatherConditions.weatherDesc}
