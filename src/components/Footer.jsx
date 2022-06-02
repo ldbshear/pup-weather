@@ -14,4 +14,5 @@ export default function Footer() {
       </footer>
     </>
   );
-}g
+}
+g;
