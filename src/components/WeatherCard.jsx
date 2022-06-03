@@ -9,6 +9,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import CurrentWeather from "./CurrentWeather";
 import DateNTime from "./DateNTime";
+import { FcHome } from "react-icons/fc";
 //import GeoLocation from "./GeoLocation";
 
 export default function WeatherCard() {
@@ -87,10 +88,7 @@ export default function WeatherCard() {
           <Button variant="outline-info" id="button-addon2" type="submit">
             Search
           </Button>
-          <img
-            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAfBJREFUSEvt1sFVwkAQBuB/ApwUSSqQEvRAfJ6ECsQKxA6wArUC6UDsIFYgnnzCQTtQK0gwekJ2fBtIJLCBTYiPizmS3fl2djOzEDb00IZcZIbLfbcFhucfWE6WxWeCAxR0MwH5zLetblo8NRxHQy49ngreHrh1YrpXZcfEjc+a1dPNXBve6rt7BgLUTAjuCXDjy7ZedHAtWAMNLW18JWw+u6YY0T0De5qZvBglbnj7lrds/FI4LRpCBKzEl8Llvic/liOdTBVjer5tNpLmJsLl/rAL8GlGdDqNur5dOVPFUML5oNHGK/EFWN0g1stb1d1i8N+g6u4Wwcu60rr5RvRMd4vgnYHbZqbrvBDlB0V8/lGzOvJdbKslDjFpiQxqgbALYAiQAxYOyGgmfulMdyDhAEYd4CaAChjvBJ7cXAa8EF2AZ1c5W8OFEluyE8mGMh7RWxA0/gwLJa4GYx7d6rhAr9PXD75t1rXLSQ6MNQ+C49fME/n7JLBx+Zs53RbG4tI7tOSCUH4aOiA+zgcOoqy+cxVVsWbG0+UzqFMsiav5C0AewffIuCBwe25b84FngvaYKLj0iVmeofIcAeQO61bdPxztVPK1GC8L3a2dG0e3vl1ppapjWa+iiGbYybLIhkA3rO/5+Sv/c2UBdeZsDP4BswTtH4E+plEAAAAASUVORK5CYII="
-            alt="home with heart icon"
-          />
+          
         </InputGroup>
       </Form>
 
