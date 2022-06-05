@@ -9,6 +9,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import CurrentWeather from "./CurrentWeather";
 import DateNTime from "./DateNTime";
+import WeatherForecastGroup from "./WeatherForecastGroup";
 //import GeoLocation from "./GeoLocation";
 
 export default function WeatherCard() {
@@ -32,6 +33,8 @@ export default function WeatherCard() {
       wind: response.data.wind.speed,
     });
   }
+
+  function getForecast(response) {}
 
   function updateLocation(event) {
     showUserCity(event.target.value);
@@ -129,9 +132,14 @@ export default function WeatherCard() {
                   currentWind={`${weatherConditions.wind} MPH wind speed`}
                 />
               </Row>
-              <Row className="forecastWeatherContainer">Weather Forecast</Row>
+              <Row className="forecastWeatherContainer">
+                <WeatherForecastGroup />
+              </Row>
             </Card.Body>
           </Card>
+        </Row>
+        <Row>
+          
         </Row>
       </Container>
     </>
