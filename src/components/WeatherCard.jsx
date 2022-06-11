@@ -9,8 +9,11 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import CurrentWeather from "./CurrentWeather";
 import DateNTime from "./DateNTime";
-import WeatherForecastGroup from "./WeatherForecastGroup";
-//import GeoLocation from "./GeoLocation";
+import WeatherForecastCard from "./WeatherForecastCard";
+
+export function userInputCity(city) {
+  return city;
+}
 
 export default function WeatherCard() {
   const [userCity, showUserCity] = useState("");
@@ -22,8 +25,23 @@ export default function WeatherCard() {
     humidity: "",
     wind: "",
   });
+  const [weatherConditionsFarenheit, getFarenheit] = useState({
+    temp: "",
+    weatherDesc: "",
+    icon: "",
+    humidity: "",
+    wind: "",
+  });
+  // const [weekForecast, showWeekForecast] = useState({
+  //   loTemp: "",
+  //   hiTemp: "",
+  // });
 
-  function getWeather(response) {
+  function showTest() {
+    console.log("Testing");
+  }
+
+  function getWeatherCelsius(response) {
     console.log(response);
     getWeatherConditions({
       temp: response.data.main.temp,
@@ -34,7 +52,27 @@ export default function WeatherCard() {
     });
   }
 
-  function getForecast(response) {}
+  // function getForecast(response) {
+  //   console.log(response);
+  //   let cityForecast = response.data.list;
+  //   // const sevenDay = cityForecast.slice(0, 7);
+  //   console.log(cityForecast);
+  //   // const [day1, day2, day3, day4, day5, day6, day7] = cityForecast;
+  //   // getWeatherConditions({
+  //   //   temp: day1.main.temp,
+  //   //   weatherDesc: day1.weather[0].main,
+  //   //   icon: day1.weather[0].icon,
+  //   //   humidity: day1.main.humidity,
+  //   //   wind: day1.wind.speed,
+  //   // });
+
+  //   // //console.log(cityForecast);
+  //   // showWeekForecast({
+  //   //   icon: day2.weather[0].icon,
+  //   //   loTemp: day2.main.temp_min,
+  //   //   hiTemp: day2.main.temp_max,
+  //   // });
+  // }
 
   function updateLocation(event) {
     showUserCity(event.target.value);
@@ -42,22 +80,17 @@ export default function WeatherCard() {
 
   function handleCurrentClick() {
     console.log("click click");
-    navigator.geolocation.getCurrentPosition((position) => {
-      let lat = position.coords.latitude;
-      let lon = position.coords.longitude;
-      alert(
-        `you are at a latitude pos of ${lat} and a longitude pos of ${lon}`
-      );
-    });
+    navigator.geolocation.getCurrentPosition(showPosition);
   }
 
-  function requestData(userCity) {
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=4d52faf0671d8976c45e49132852bc77&units=metric`;
-    //Forecast let url = `https://api.openweathermap.org/data/2.5/forecast?q=${userCity}&appid=4d52faf0671d8976c45e49132852bc77&units=metric`;
-
+  function showPosition(position) {
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    console.log(lat);
+    let url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=4d52faf0671d8976c45e49132852bc77`;
     axios
       .get(url)
-      .then(getWeather)
+      .then(getCityName)
       .catch(function (error) {
         if (error.response) {
           console.log(error.response.data);
@@ -69,6 +102,48 @@ export default function WeatherCard() {
         }
         console.log(error.config);
       });
+  }
+
+  function getCityName(response) {
+    console.log(response);
+    let cityName = response.data[0].name;
+    showLocation(cityName);
+    requestData(cityName);
+  }
+
+  function requestData(userCity) {
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=4d52faf0671d8976c45e49132852bc77&units=metric`;
+    //let url = `https://api.openweathermap.org/data/2.5/forecast?q=${userCity}&appid=4d52faf0671d8976c45e49132852bc77&units=metric`;
+
+    axios
+      .get(url)
+      .then(getWeatherCelsius)
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+
+    // axios
+    //   .get(url)
+    //   .then(getForecast)
+    //   .catch(function (error) {
+    //     if (error.response) {
+    //       console.log(error.response.data);
+    //       console.log(error.response.status);
+    //     } else if (error.request) {
+    //       console.log(error.request);
+    //     } else {
+    //       console.log("Error", error.message);
+    //     }
+    //     console.log(error.config);
+    //   });
   }
 
   return (
@@ -84,6 +159,7 @@ export default function WeatherCard() {
       >
         <InputGroup className="mb-3 w-50 mx-auto">
           <FormControl
+            className="userLocation"
             size="lg"
             type="text"
             placeholder="Enter city"
@@ -124,7 +200,7 @@ export default function WeatherCard() {
               <DateNTime />
               <Row className="currentWeatherContainer ">
                 <CurrentWeather
-                  currentTemp={`${Math.floor(weatherConditions.temp)}°C`}
+                  currentTemp={`${Math.floor(weatherConditions.temp)}`}
                   currentLocation={location}
                   currentWeatherDesc={weatherConditions.weatherDesc}
                   icon={`http://openweathermap.org/img/w/${weatherConditions.icon}.png`}
@@ -133,14 +209,15 @@ export default function WeatherCard() {
                 />
               </Row>
               <Row className="forecastWeatherContainer">
-                <WeatherForecastGroup />
+                {/* <WeatherForecastCard
+                  icon={`http://openweathermap.org/img/w/${weekForecast.icon}.png`}
+                  hiTemp={weekForecast.hiTemp}
+                /> */}
               </Row>
             </Card.Body>
           </Card>
         </Row>
-        <Row>
-          
-        </Row>
+        <Row></Row>
       </Container>
     </>
   );

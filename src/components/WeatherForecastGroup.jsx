@@ -1,21 +1,15 @@
 import React from "react";
 import CardGroup from "react-bootstrap/CardGroup";
 import Card from "react-bootstrap/Card";
+import WeatherCard from "./WeatherCard";
+import WeatherForecastCard from "./WeatherForecastCard";
 
 export default function WeatherForecastGroup() {
   return (
     <>
       <CardGroup>
-        
-        <Card className="bg-transparent">
-          <Card.Body>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </Card.Text>
-          </Card.Body>
-        </Card>
+        <h4>Printed</h4>
+        {/* <WeatherForecastCard loTemp={cityForecast.loTemp} /> */}
       </CardGroup>
       ;
     </>
