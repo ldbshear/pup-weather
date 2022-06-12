@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 
 export default function CurrentWeather(props) {
   const [weatherConditions, getWeatherConditions] = useState({
@@ -21,10 +21,6 @@ export default function CurrentWeather(props) {
     weatherConditions.temp = Math.floor((props.currentTemp * 9) / 5 + 32);
     getWeatherConditions({ temp: weatherConditions.temp });
     console.log(weatherConditions.temp);
-  }
-
-  function handleToggle() {
-    "testing";
   }
 
   if (imperialTemp) {

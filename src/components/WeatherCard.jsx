@@ -37,10 +37,6 @@ export default function WeatherCard() {
   //   hiTemp: "",
   // });
 
-  function showTest() {
-    console.log("Testing");
-  }
-
   function getWeatherCelsius(response) {
     console.log(response);
     getWeatherConditions({
