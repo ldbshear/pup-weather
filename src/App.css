@@ -46,6 +46,7 @@ li {
 
 .units {
   cursor: pointer;
+  font-size: 2rem;
 }
 /* .App-logo {
   height: 40vmin;

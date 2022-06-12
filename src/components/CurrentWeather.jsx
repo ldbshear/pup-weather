@@ -20,7 +20,7 @@ export default function CurrentWeather(props) {
     // console.log(convertF);
     // showImperialTemp(convertF);
 
-    weatherConditions.temp = (props.currentTemp * 9) / 5 + 32;
+    weatherConditions.temp = Math.floor((props.currentTemp * 9) / 5 + 32);
     getWeatherConditions({ temp: weatherConditions.temp });
     console.log(weatherConditions.temp);
   }
@@ -38,7 +38,7 @@ export default function CurrentWeather(props) {
               <ul className="">
                 {/* <li>{props.day}</li> */}
                 <li className="currentTemp">
-                  <span className="units">{props.currentTemp}</span>
+                  <span className="">{props.currentTemp}</span>
                   <span onClick={""} className="units">
                     C
                   </span>
@@ -77,11 +77,10 @@ export default function CurrentWeather(props) {
               <ul className="">
                 {/* <li>{props.day}</li> */}
                 <li className="currentTemp">
-                  <span className="units">{weatherConditions.temp}</span>
+                  <span className="">{`${weatherConditions.temp} `}</span>
                   <span
                     onClick={() => {
                       showImperialTemp(true);
-                      //handleFarenheit();
                     }}
                     className="units"
                   >

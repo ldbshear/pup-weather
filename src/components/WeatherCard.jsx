@@ -200,7 +200,7 @@ export default function WeatherCard() {
               <DateNTime />
               <Row className="currentWeatherContainer ">
                 <CurrentWeather
-                  currentTemp={`${Math.floor(weatherConditions.temp)}`}
+                  currentTemp={`${Math.floor(weatherConditions.temp)} `}
                   currentLocation={location}
                   currentWeatherDesc={weatherConditions.weatherDesc}
                   icon={`http://openweathermap.org/img/w/${weatherConditions.icon}.png`}
