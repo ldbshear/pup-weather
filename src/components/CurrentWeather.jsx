@@ -10,7 +10,7 @@ export default function CurrentWeather(props) {
     wind: "",
   });
   const [imperialTemp, showImperialTemp] = useState(true);
-  let metric = true;
+  let imperial = true;
 
   function handleFarenheit() {
     // let temp = props.currentTemp;
@@ -25,8 +25,8 @@ export default function CurrentWeather(props) {
     console.log(weatherConditions.temp);
   }
 
-  function handleCelsius() {
-    console.log("celsius");
+  function handleToggle() {
+    "testing";
   }
 
   if (imperialTemp) {
@@ -39,12 +39,12 @@ export default function CurrentWeather(props) {
                 {/* <li>{props.day}</li> */}
                 <li className="currentTemp">
                   <span className="units">{props.currentTemp}</span>
-                  <span onClick={handleCelsius} className="units">
+                  <span onClick={""} className="units">
                     C
                   </span>
                   <span
                     onClick={() => {
-                      metric = false;
+                      showImperialTemp(false);
                       handleFarenheit();
                     }}
                     className="units"
@@ -80,8 +80,8 @@ export default function CurrentWeather(props) {
                   <span className="units">{weatherConditions.temp}</span>
                   <span
                     onClick={() => {
-                      metric = false;
-                      handleFarenheit();
+                      showImperialTemp(true);
+                      //handleFarenheit();
                     }}
                     className="units"
                   >
