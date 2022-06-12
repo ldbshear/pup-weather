@@ -9,7 +9,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import CurrentWeather from "./CurrentWeather";
 import DateNTime from "./DateNTime";
-import WeatherForecastCard from "./WeatherForecastCard";
+//import WeatherForecastCard from "./WeatherForecastCard";
 
 export function userInputCity(city) {
   return city;
@@ -25,13 +25,13 @@ export default function WeatherCard() {
     humidity: "",
     wind: "",
   });
-  const [weatherConditionsFarenheit, getFarenheit] = useState({
-    temp: "",
-    weatherDesc: "",
-    icon: "",
-    humidity: "",
-    wind: "",
-  });
+  // const [weatherConditionsFarenheit, getFarenheit] = useState({
+  //   temp: "",
+  //   weatherDesc: "",
+  //   icon: "",
+  //   humidity: "",
+  //   wind: "",
+  // });
   // const [weekForecast, showWeekForecast] = useState({
   //   loTemp: "",
   //   hiTemp: "",

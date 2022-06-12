@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import axios from "axios";
 
 export default function CurrentWeather(props) {
   const [weatherConditions, getWeatherConditions] = useState({
@@ -10,7 +9,6 @@ export default function CurrentWeather(props) {
     wind: "",
   });
   const [imperialTemp, showImperialTemp] = useState(true);
-  let imperial = true;
 
   function handleFarenheit() {
     // let temp = props.currentTemp;
