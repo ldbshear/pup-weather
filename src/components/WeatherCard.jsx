@@ -109,7 +109,7 @@ export default function WeatherCard(props) {
   }
 
   const weatherApi = (userCity) => {
-    const forecastUrl = `https://api.weatherbit.io/v2.0/forecast/daily?city=${userCity}&country=&state=&key=c0d88077a0b9403e8ad42fe14557f5f9`;
+    const forecastUrl = `https://api.weather00bit.io/v2.0/forecast/daily?city=${userCity}&country=&state=&key=c0d88077a0b9403e8ad42fe14557f5f9`;
     console.log(forecastUrl);
     axios
       .get(forecastUrl)
@@ -192,7 +192,13 @@ export default function WeatherCard(props) {
               <Row>
                 <CardGroup>
                   {forecast.map((day) => {
-                    const { high_temp, min_temp, datetime, sunrise_ts } = day;
+                    const {
+                      weather,
+                      high_temp,
+                      min_temp,
+                      datetime,
+                      sunrise_ts,
+                    } = day;
                     return (
                       <Card
                         key={sunrise_ts}
@@ -200,6 +206,14 @@ export default function WeatherCard(props) {
                       >
                         <Card.Body>
                           <h4>{datetime}</h4>
+                          <h5>{weather.icon}</h5>
+                          <img
+                            src={`https://www.weatherbit.io/static/img/icons/${weather.icon}.png`}
+                            alt=""
+                          />
+                          <ul>
+                            <li>{`${high_temp}/${min_temp}`}</li>
+                          </ul>
                         </Card.Body>
                       </Card>
                     );
