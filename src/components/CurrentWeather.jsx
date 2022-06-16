@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import WeatherForecastGroup from "./WeatherForecastGroup";
 
 export default function CurrentWeather(props) {
   const [weatherConditions, getWeatherConditions] = useState({
