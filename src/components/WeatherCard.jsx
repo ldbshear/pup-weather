@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import Card from "react-bootstrap/Card";
+import { CardGroup } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import CurrentWeather from "./CurrentWeather";
 import DateNTime from "./DateNTime";
-//import WeatherForecastCard from "./WeatherForecastCard";
 
 export function userInputCity(city) {
   return city;
 }
 
-export default function WeatherCard() {
+export default function WeatherCard(props) {
   const [userCity, showUserCity] = useState("");
   const [location, showLocation] = useState("");
   const [weatherConditions, getWeatherConditions] = useState({
@@ -25,17 +25,21 @@ export default function WeatherCard() {
     humidity: "",
     wind: "",
   });
-  // const [weatherConditionsFarenheit, getFarenheit] = useState({
-  //   temp: "",
-  //   weatherDesc: "",
-  //   icon: "",
-  //   humidity: "",
-  //   wind: "",
-  // });
-  // const [weekForecast, showWeekForecast] = useState({
-  //   loTemp: "",
-  //   hiTemp: "",
-  // });
+  const [forecast, setForecast] = useState([]);
+
+  function getForecast(response) {
+    const forecast = response.data.data;
+    let sevenDay = forecast.slice(0, 5);
+    setForecast(sevenDay);
+    console.log(sevenDay);
+  }
+
+  useEffect(
+    (location) => {
+      weatherApi(userCity);
+    },
+    [location]
+  );
 
   function getWeatherCelsius(response) {
     console.log(response);
@@ -47,28 +51,6 @@ export default function WeatherCard() {
       wind: response.data.wind.speed,
     });
   }
-
-  // function getForecast(response) {
-  //   console.log(response);
-  //   let cityForecast = response.data.list;
-  //   // const sevenDay = cityForecast.slice(0, 7);
-  //   console.log(cityForecast);
-  //   // const [day1, day2, day3, day4, day5, day6, day7] = cityForecast;
-  //   // getWeatherConditions({
-  //   //   temp: day1.main.temp,
-  //   //   weatherDesc: day1.weather[0].main,
-  //   //   icon: day1.weather[0].icon,
-  //   //   humidity: day1.main.humidity,
-  //   //   wind: day1.wind.speed,
-  //   // });
-
-  //   // //console.log(cityForecast);
-  //   // showWeekForecast({
-  //   //   icon: day2.weather[0].icon,
-  //   //   loTemp: day2.main.temp_min,
-  //   //   hiTemp: day2.main.temp_max,
-  //   // });
-  // }
 
   function updateLocation(event) {
     showUserCity(event.target.value);
@@ -109,7 +91,6 @@ export default function WeatherCard() {
 
   function requestData(userCity) {
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=4d52faf0671d8976c45e49132852bc77&units=metric`;
-    //let url = `https://api.openweathermap.org/data/2.5/forecast?q=${userCity}&appid=4d52faf0671d8976c45e49132852bc77&units=metric`;
 
     axios
       .get(url)
@@ -125,22 +106,26 @@ export default function WeatherCard() {
         }
         console.log(error.config);
       });
-
-    // axios
-    //   .get(url)
-    //   .then(getForecast)
-    //   .catch(function (error) {
-    //     if (error.response) {
-    //       console.log(error.response.data);
-    //       console.log(error.response.status);
-    //     } else if (error.request) {
-    //       console.log(error.request);
-    //     } else {
-    //       console.log("Error", error.message);
-    //     }
-    //     console.log(error.config);
-    //   });
   }
+
+  const weatherApi = (userCity) => {
+    const forecastUrl = `https://api.weatherbit.io/v2.0/forecast/daily?city=${userCity}&country=&state=&key=c0d88077a0b9403e8ad42fe14557f5f9`;
+    console.log(forecastUrl);
+    axios
+      .get(forecastUrl)
+      .then(getForecast)
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  };
 
   return (
     <>
@@ -204,16 +189,26 @@ export default function WeatherCard() {
                   currentWind={`${weatherConditions.wind} MPH wind speed`}
                 />
               </Row>
-              <Row className="forecastWeatherContainer">
-                {/* <WeatherForecastCard
-                  icon={`http://openweathermap.org/img/w/${weekForecast.icon}.png`}
-                  hiTemp={weekForecast.hiTemp}
-                /> */}
+              <Row>
+                <CardGroup>
+                  {forecast.map((day) => {
+                    const { high_temp, min_temp, datetime, sunrise_ts } = day;
+                    return (
+                      <Card
+                        key={sunrise_ts}
+                        className="bg-transparent border-right"
+                      >
+                        <Card.Body>
+                          <h4>{datetime}</h4>
+                        </Card.Body>
+                      </Card>
+                    );
+                  })}
+                </CardGroup>
               </Row>
             </Card.Body>
           </Card>
         </Row>
-        <Row></Row>
       </Container>
     </>
   );

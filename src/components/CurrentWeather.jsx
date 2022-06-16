@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import WeatherForecastGroup from "./WeatherForecastGroup";
 
 export default function CurrentWeather(props) {
   const [weatherConditions, getWeatherConditions] = useState({
@@ -11,16 +12,8 @@ export default function CurrentWeather(props) {
   const [imperialTemp, showImperialTemp] = useState(true);
 
   function handleFarenheit() {
-    // let temp = props.currentTemp;
-    // let convertF = (temp * 9) / 5 + 32;
-    // console.log();
-    // temp = convertF;
-    // console.log(convertF);
-    // showImperialTemp(convertF);
-
     weatherConditions.temp = Math.floor((props.currentTemp * 9) / 5 + 32);
     getWeatherConditions({ temp: weatherConditions.temp });
-    console.log(weatherConditions.temp);
   }
 
   if (imperialTemp) {
@@ -57,7 +50,11 @@ export default function CurrentWeather(props) {
                 <li className="currentWind">{props.currentWind}</li>
               </ul>
             </div>
-            <div className="col-md p-2"></div>
+          </div>
+          <div className="row">
+            <div className="col-md p-2">
+              {/* <WeatherForecastGroup icon={props.icon} /> */}
+            </div>
           </div>
         </div>
       </>
@@ -95,7 +92,9 @@ export default function CurrentWeather(props) {
                 <li className="currentWind">{props.currentWind}</li>
               </ul>
             </div>
-            <div className="col-md p-2"></div>
+          </div>
+          <div className="row">
+            <div className="col-md p-2">{/* <WeatherForecastGroup /> */}</div>
           </div>
         </div>
       </>

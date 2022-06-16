@@ -9,10 +9,24 @@ export default function WeatherForecastCard(props) {
         <Card.Body>
           <ul>
             <li>
-              <img className="icon" src={props.icon} alt="" />
+              <h5>Thursday</h5>
             </li>
-            <li className="forecastTempHi">{props.hiTemp}</li>
-            <li className="forecastTempLo">{props.loTemp}</li>
+            <li>
+              <img className="icon" src={props.icon} alt="" />
+              <p>CLOUDY</p>
+            </li>
+            <li className="forecastTempHi">
+              {props.hiTemp}{" "}
+              <p>
+                100/<span>90</span>
+              </p>
+            </li>
+            <li className="forecastTempLo">
+              {props.loTemp}{" "}
+              <p>
+                <span>Humidity</span> 50%
+              </p>
+            </li>
           </ul>
         </Card.Body>
       </Card>
