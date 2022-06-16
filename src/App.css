@@ -49,6 +49,11 @@ li {
   cursor: pointer;
   font-size: 2rem;
 }
+
+.forecastImg {
+  width: 40px;
+}
+
 @media (max-width: 950px) {
   .card-background {
     background-size: contain;
@@ -65,4 +70,3 @@ li {
     background-repeat: no-repeat;
   }
 }
-

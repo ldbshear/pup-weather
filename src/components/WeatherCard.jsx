@@ -34,12 +34,28 @@ export default function WeatherCard(props) {
     console.log(sevenDay);
   }
 
-  useEffect(
-    (location) => {
-      weatherApi(userCity);
-    },
-    [location]
-  );
+  useEffect(() => {
+    const weatherApi = (location) => {
+      let userCity = location;
+      const forecastUrl = `https://api.weatherbit.io/v2.0/forecast/daily?city=${userCity}&country=&state=&key=c0d88077a0b9403e8ad42fe14557f5f9`;
+      console.log(forecastUrl);
+      axios
+        .get(forecastUrl)
+        .then(getForecast)
+        .catch(function (error) {
+          if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+          } else if (error.request) {
+            console.log(error.request);
+          } else {
+            console.log("Error", error.message);
+          }
+          console.log(error.config);
+        });
+    };
+    weatherApi(location);
+  }, [location]);
 
   function getWeatherCelsius(response) {
     console.log(response);
@@ -107,25 +123,6 @@ export default function WeatherCard(props) {
         console.log(error.config);
       });
   }
-
-  const weatherApi = (userCity) => {
-    const forecastUrl = `https://api.weather00bit.io/v2.0/forecast/daily?city=${userCity}&country=&state=&key=c0d88077a0b9403e8ad42fe14557f5f9`;
-    console.log(forecastUrl);
-    axios
-      .get(forecastUrl)
-      .then(getForecast)
-      .catch(function (error) {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-        } else if (error.request) {
-          console.log(error.request);
-        } else {
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
-      });
-  };
 
   return (
     <>
@@ -205,14 +202,16 @@ export default function WeatherCard(props) {
                         className="bg-transparent border-right"
                       >
                         <Card.Body>
-                          <h4>{datetime}</h4>
-                          <h5>{weather.icon}</h5>
-                          <img
-                            src={`https://www.weatherbit.io/static/img/icons/${weather.icon}.png`}
-                            alt=""
-                          />
                           <ul>
-                            <li>{`${high_temp}/${min_temp}`}</li>
+                            <li className="forecastDay">{datetime}</li>
+                            <li>
+                              <img
+                                className="forecastImg"
+                                src={`https://www.weatherbit.io/static/img/icons/${weather.icon}.png`}
+                                alt=""
+                              />
+                            </li>
+                            <li className="forecastMaxMin">{`${high_temp}/${min_temp}`}</li>
                           </ul>
                         </Card.Body>
                       </Card>
