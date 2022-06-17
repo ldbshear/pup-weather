@@ -10,6 +10,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import CurrentWeather from "./CurrentWeather";
 import DateNTime from "./DateNTime";
+import ForecastDates from "./ForecastDates";
 
 export function userInputCity(city) {
   return city;
@@ -29,7 +30,7 @@ export default function WeatherCard(props) {
 
   function getForecast(response) {
     const forecast = response.data.data;
-    let sevenDay = forecast.slice(0, 5);
+    let sevenDay = forecast.slice(1, 6);
     setForecast(sevenDay);
     console.log(sevenDay);
   }
@@ -37,7 +38,7 @@ export default function WeatherCard(props) {
   useEffect(() => {
     const weatherApi = (location) => {
       let userCity = location;
-      const forecastUrl = `https://api.weatherbit.io/v2.0/forecast/daily?city=${userCity}&country=&state=&key=c0d88077a0b9403e8ad42fe14557f5f9`;
+      const forecastUrl = `https://api.weather0bit.io/v2.0/forecast/daily?city=${userCity}&country=&state=&key=c0d88077a0b9403e8ad42fe14557f5f9`;
       console.log(forecastUrl);
       axios
         .get(forecastUrl)
@@ -178,8 +179,8 @@ export default function WeatherCard(props) {
               <DateNTime />
               <Row className="currentWeatherContainer ">
                 <CurrentWeather
-                  currentTemp={`${Math.floor(weatherConditions.temp)} `}
-                  currentLocation={location}
+                  currentTemp={`${Math.floor(weatherConditions.temp)}° `}
+                  currentLocation={location.toUpperCase()}
                   currentWeatherDesc={weatherConditions.weatherDesc}
                   icon={`http://openweathermap.org/img/w/${weatherConditions.icon}.png`}
                   currentHumidity={`${weatherConditions.humidity}% Humidity`}
@@ -190,10 +191,11 @@ export default function WeatherCard(props) {
                 <CardGroup>
                   {forecast.map((day) => {
                     const {
+                      ts,
                       weather,
                       high_temp,
                       min_temp,
-                      datetime,
+                      valid_date,
                       sunrise_ts,
                     } = day;
                     return (
@@ -201,17 +203,26 @@ export default function WeatherCard(props) {
                         key={sunrise_ts}
                         className="bg-transparent border-right"
                       >
-                        <Card.Body>
+                        <Card.Body className="mx-auto">
                           <ul>
-                            <li className="forecastDay">{datetime}</li>
-                            <li>
+                            <li className="forecastDay">{valid_date}</li>
+                            {/* <li className="forecastDay">{datetime}</li> */}
+                            <ForecastDates day={new Date(ts * 1000)} />
+                            <li className="text-center">
                               <img
                                 className="forecastImg"
                                 src={`https://www.weatherbit.io/static/img/icons/${weather.icon}.png`}
                                 alt=""
                               />
                             </li>
-                            <li className="forecastMaxMin">{`${high_temp}/${min_temp}`}</li>
+                            <li className="forecastMaxMin text-center">
+                              <span className="fs-4 fw-bold align-top">
+                                {`${Math.round(high_temp)}`}°
+                              </span>
+                              <span className="fs-5 align-top">
+                                /{`${Math.round(min_temp)}`}°
+                              </span>
+                            </li>
                           </ul>
                         </Card.Body>
                       </Card>

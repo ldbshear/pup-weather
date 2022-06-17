@@ -51,11 +51,11 @@ li {
 }
 
 .forecastImg {
-  width: 40px;
+  width: 50px;
 }
 
 @media (max-width: 950px) {
-  .card-background {
+  .weatherContainer {
     background-size: contain;
     background-position: top;
     background-repeat: no-repeat;
@@ -63,8 +63,8 @@ li {
 }
 
 @media (max-width: 768px) {
-  .card-background {
-    background: url(/public/squareCuteGermanShepherd.jpg);
+  .weatherContainer {
+    background-image: url(/public/squareCuteGermanShepherd.jpg);
     background-position: top;
     background-size: contain;
     background-repeat: no-repeat;
