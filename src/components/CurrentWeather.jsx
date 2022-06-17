@@ -10,9 +10,11 @@ export default function CurrentWeather(props) {
   });
   const [imperialTemp, showImperialTemp] = useState(true);
 
+  //console.log(props.currentTemp);
+
   function handleFarenheit() {
-    weatherConditions.temp = Math.floor((props.currentTemp * 9) / 5 + 32);
-    getWeatherConditions({ temp: weatherConditions.temp });
+    let fahrenheitTemp = Math.round((props.currentTemp * 9) / 5 + 32);
+    getWeatherConditions({ temp: fahrenheitTemp });
   }
 
   if (imperialTemp) {
@@ -22,7 +24,6 @@ export default function CurrentWeather(props) {
           <div className="row">
             <div className="col-md">
               <ul className="">
-                {/* <li>{props.day}</li> */}
                 <li className="currentTemp">
                   <span className="">{props.currentTemp}</span>
                   <span onClick={""} className="units">
@@ -50,11 +51,7 @@ export default function CurrentWeather(props) {
               </ul>
             </div>
           </div>
-          <div className="row">
-            <div className="col-md p-2">
-              {/* <WeatherForecastGroup icon={props.icon} /> */}
-            </div>
-          </div>
+          <div className="row"></div>
         </div>
       </>
     );
@@ -65,7 +62,6 @@ export default function CurrentWeather(props) {
           <div className="row">
             <div className="col-md">
               <ul className="">
-                {/* <li>{props.day}</li> */}
                 <li className="currentTemp">
                   <span className="">{`${weatherConditions.temp} `}</span>
                   <span
@@ -92,9 +88,7 @@ export default function CurrentWeather(props) {
               </ul>
             </div>
           </div>
-          <div className="row">
-            <div className="col-md p-2">{/* <WeatherForecastGroup /> */}</div>
-          </div>
+          <div className="row"></div>
         </div>
       </>
     );

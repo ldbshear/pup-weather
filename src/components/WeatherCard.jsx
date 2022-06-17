@@ -179,7 +179,7 @@ export default function WeatherCard(props) {
               <DateNTime />
               <Row className="currentWeatherContainer ">
                 <CurrentWeather
-                  currentTemp={`${Math.floor(weatherConditions.temp)}° `}
+                  currentTemp={`${Math.floor(weatherConditions.temp)} `}
                   currentLocation={location.toUpperCase()}
                   currentWeatherDesc={weatherConditions.weatherDesc}
                   icon={`http://openweathermap.org/img/w/${weatherConditions.icon}.png`}
@@ -206,7 +206,6 @@ export default function WeatherCard(props) {
                         <Card.Body className="mx-auto">
                           <ul>
                             <li className="forecastDay">{valid_date}</li>
-                            {/* <li className="forecastDay">{datetime}</li> */}
                             <ForecastDates day={new Date(ts * 1000)} />
                             <li className="text-center">
                               <img
