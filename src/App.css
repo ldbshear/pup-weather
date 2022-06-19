@@ -54,6 +54,11 @@ li {
   width: 50px;
 }
 
+.forecastUnits {
+  justify-content: flex-start !important;
+  justify-items: flex-start !important;
+}
+
 @media (max-width: 950px) {
   .weatherContainer {
     background-size: contain;

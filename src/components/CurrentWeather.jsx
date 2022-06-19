@@ -1,4 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Card from "react-bootstrap/Card";
+import { CardGroup } from "react-bootstrap";
+import ForecastDates from "./ForecastDates";
+import WeekdayForecast from "./WeekdayForecast";
 
 export default function CurrentWeather(props) {
   const [weatherConditions, getWeatherConditions] = useState({
@@ -9,8 +14,38 @@ export default function CurrentWeather(props) {
     wind: "",
   });
   const [imperialTemp, showImperialTemp] = useState(true);
+  const [forecast, setForecast] = useState([]);
 
   //console.log(props.currentTemp);
+  function getForecast(response) {
+    const forecast = response.data.data;
+    let sevenDay = forecast.slice(1, 6);
+    setForecast(sevenDay);
+    console.log(sevenDay);
+  }
+
+  useEffect(() => {
+    const weatherApi = (props) => {
+      let userCity = props.currentLocation;
+      const forecastUrl = `https://api.weatherbit.io/v2.0/forecast/daily?city=${userCity}&country=&state=&key=c0d88077a0b9403e8ad42fe14557f5f9`;
+      console.log(forecastUrl);
+      axios
+        .get(forecastUrl)
+        .then(getForecast)
+        .catch(function (error) {
+          if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+          } else if (error.request) {
+            console.log(error.request);
+          } else {
+            console.log("Error", error.message);
+          }
+          console.log(error.config);
+        });
+    };
+    weatherApi(props);
+  }, [props.currentLocation]);
 
   function handleFarenheit() {
     let fahrenheitTemp = Math.round((props.currentTemp * 9) / 5 + 32);
@@ -51,7 +86,36 @@ export default function CurrentWeather(props) {
               </ul>
             </div>
           </div>
-          <div className="row"></div>
+          <div className="row">
+            <CardGroup>
+              {forecast.map((day) => {
+                const {
+                  ts,
+                  weather,
+                  high_temp,
+                  min_temp,
+                  valid_date,
+                  sunrise_ts,
+                } = day;
+                return (
+                  <Card
+                    key={sunrise_ts}
+                    className="bg-transparent border-right"
+                  >
+                    <Card.Body className="mx-auto">
+                      <ForecastDates day={new Date(ts * 1000)} />
+                      <WeekdayForecast
+                        forecastDate={valid_date}
+                        src={`https://www.weatherbit.io/static/img/icons/${weather.icon}.png`}
+                        hiTemp={`${Math.round(high_temp)}`}
+                        loTemp={`${Math.round(min_temp)}`}
+                      />
+                    </Card.Body>
+                  </Card>
+                );
+              })}
+            </CardGroup>
+          </div>
         </div>
       </>
     );
@@ -88,7 +152,36 @@ export default function CurrentWeather(props) {
               </ul>
             </div>
           </div>
-          <div className="row"></div>
+          <div className="row">
+            <CardGroup>
+              {forecast.map((day) => {
+                const {
+                  ts,
+                  weather,
+                  high_temp,
+                  min_temp,
+                  valid_date,
+                  sunrise_ts,
+                } = day;
+                return (
+                  <Card
+                    key={sunrise_ts}
+                    className="bg-transparent border-right"
+                  >
+                    <Card.Body className="mx-auto">
+                      <ForecastDates day={new Date(ts * 1000)} />
+                      <WeekdayForecast
+                        forecastDate={valid_date}
+                        src={`https://www.weatherbit.io/static/img/icons/${weather.icon}.png`}
+                        hiTemp={`${Math.round(high_temp * 9) / 5 + 32}`}
+                        loTemp={`${Math.round(min_temp * 9) / 5 + 32}`}
+                      />
+                    </Card.Body>
+                  </Card>
+                );
+              })}
+            </CardGroup>
+          </div>
         </div>
       </>
     );

@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import Card from "react-bootstrap/Card";
-import { CardGroup } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import CurrentWeather from "./CurrentWeather";
 import DateNTime from "./DateNTime";
-import ForecastDates from "./ForecastDates";
 
 export function userInputCity(city) {
   return city;
@@ -26,40 +24,8 @@ export default function WeatherCard(props) {
     humidity: "",
     wind: "",
   });
-  const [forecast, setForecast] = useState([]);
-
-  function getForecast(response) {
-    const forecast = response.data.data;
-    let sevenDay = forecast.slice(1, 6);
-    setForecast(sevenDay);
-    console.log(sevenDay);
-  }
-
-  useEffect(() => {
-    const weatherApi = (location) => {
-      let userCity = location;
-      const forecastUrl = `https://api.weather0bit.io/v2.0/forecast/daily?city=${userCity}&country=&state=&key=c0d88077a0b9403e8ad42fe14557f5f9`;
-      console.log(forecastUrl);
-      axios
-        .get(forecastUrl)
-        .then(getForecast)
-        .catch(function (error) {
-          if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-          } else if (error.request) {
-            console.log(error.request);
-          } else {
-            console.log("Error", error.message);
-          }
-          console.log(error.config);
-        });
-    };
-    weatherApi(location);
-  }, [location]);
 
   function getWeatherCelsius(response) {
-    console.log(response);
     getWeatherConditions({
       temp: response.data.main.temp,
       weatherDesc: response.data.weather[0].main,
@@ -74,7 +40,6 @@ export default function WeatherCard(props) {
   }
 
   function handleCurrentClick() {
-    console.log("click click");
     navigator.geolocation.getCurrentPosition(showPosition);
   }
 
@@ -177,7 +142,9 @@ export default function WeatherCard(props) {
           <Card className="weatherContainer shadow">
             <Card.Body>
               <DateNTime />
+
               <Row className="currentWeatherContainer ">
+                <span className="forecastUnits justify-content-start"></span>
                 <CurrentWeather
                   currentTemp={`${Math.floor(weatherConditions.temp)} `}
                   currentLocation={location.toUpperCase()}
@@ -187,48 +154,8 @@ export default function WeatherCard(props) {
                   currentWind={`${weatherConditions.wind} MPH wind speed`}
                 />
               </Row>
-              <Row>
-                <CardGroup>
-                  {forecast.map((day) => {
-                    const {
-                      ts,
-                      weather,
-                      high_temp,
-                      min_temp,
-                      valid_date,
-                      sunrise_ts,
-                    } = day;
-                    return (
-                      <Card
-                        key={sunrise_ts}
-                        className="bg-transparent border-right"
-                      >
-                        <Card.Body className="mx-auto">
-                          <ul>
-                            <li className="forecastDay">{valid_date}</li>
-                            <ForecastDates day={new Date(ts * 1000)} />
-                            <li className="text-center">
-                              <img
-                                className="forecastImg"
-                                src={`https://www.weatherbit.io/static/img/icons/${weather.icon}.png`}
-                                alt=""
-                              />
-                            </li>
-                            <li className="forecastMaxMin text-center">
-                              <span className="fs-4 fw-bold align-top">
-                                {`${Math.round(high_temp)}`}°
-                              </span>
-                              <span className="fs-5 align-top">
-                                /{`${Math.round(min_temp)}`}°
-                              </span>
-                            </li>
-                          </ul>
-                        </Card.Body>
-                      </Card>
-                    );
-                  })}
-                </CardGroup>
-              </Row>
+
+              <Row></Row>
             </Card.Body>
           </Card>
         </Row>
