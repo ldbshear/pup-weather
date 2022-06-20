@@ -44,10 +44,12 @@ export default function WeatherCard(props) {
   }
 
   function showPosition(position) {
+    console.log(position);
+    console.log("hello");
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
     console.log(lat);
-    let url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=4d52faf0671d8976c45e49132852bc77`;
+    let url = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=4d52faf0671d8976c45e49132852bc77`;
     axios
       .get(url)
       .then(getCityName)
