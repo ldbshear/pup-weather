@@ -12,5 +12,5 @@ export default function ForecastDates(props) {
   ];
   forecastWeekDay = week[weekDay.getDay()];
 
-  return forecastWeekDay;
+  return <span className="fw-bold">{forecastWeekDay}</span>;
 }

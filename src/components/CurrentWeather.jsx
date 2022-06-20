@@ -16,19 +16,17 @@ export default function CurrentWeather(props) {
   const [imperialTemp, showImperialTemp] = useState(true);
   const [forecast, setForecast] = useState([]);
 
-  //console.log(props.currentTemp);
   function getForecast(response) {
     const forecast = response.data.data;
     let sevenDay = forecast.slice(1, 6);
     setForecast(sevenDay);
-    console.log(sevenDay);
   }
 
   useEffect(() => {
     const weatherApi = () => {
       let userCity = props.currentLocation;
       const forecastUrl = `https://api.weatherbit.io/v2.0/forecast/daily?city=${userCity}&country=&state=&key=c0d88077a0b9403e8ad42fe14557f5f9`;
-      console.log(forecastUrl);
+
       axios
         .get(forecastUrl)
         .then(getForecast)
@@ -98,11 +96,8 @@ export default function CurrentWeather(props) {
                   sunrise_ts,
                 } = day;
                 return (
-                  <Card
-                    key={sunrise_ts}
-                    className="bg-transparent border-right"
-                  >
-                    <Card.Body className="mx-auto">
+                  <Card key={sunrise_ts} className="bg-transparent border-0">
+                    <Card.Body className="mx-auto mt-5">
                       <ForecastDates day={new Date(ts * 1000)} />
                       <WeekdayForecast
                         forecastDate={valid_date}
@@ -164,10 +159,7 @@ export default function CurrentWeather(props) {
                   sunrise_ts,
                 } = day;
                 return (
-                  <Card
-                    key={sunrise_ts}
-                    className="bg-transparent border-right"
-                  >
+                  <Card key={sunrise_ts} className="bg-transparent border-0">
                     <Card.Body className="mx-auto">
                       <ForecastDates day={new Date(ts * 1000)} />
                       <WeekdayForecast

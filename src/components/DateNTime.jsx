@@ -33,7 +33,7 @@ export default function DateNTime() {
   return (
     <>
       <ul>
-        <li className="mt-3">{`${day} ${month} ${date} `}</li>
+        <li className="mt-3 fs-3">{`${day} ${month} ${date} `}</li>
       </ul>
     </>
   );
