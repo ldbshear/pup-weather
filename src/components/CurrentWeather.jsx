@@ -25,7 +25,7 @@ export default function CurrentWeather(props) {
   }
 
   useEffect(() => {
-    const weatherApi = (props) => {
+    const weatherApi = () => {
       let userCity = props.currentLocation;
       const forecastUrl = `https://api.weatherbit.io/v2.0/forecast/daily?city=${userCity}&country=&state=&key=c0d88077a0b9403e8ad42fe14557f5f9`;
       console.log(forecastUrl);
@@ -44,7 +44,7 @@ export default function CurrentWeather(props) {
           console.log(error.config);
         });
     };
-    weatherApi(props);
+    weatherApi();
   }, [props.currentLocation]);
 
   function handleFarenheit() {
@@ -173,8 +173,8 @@ export default function CurrentWeather(props) {
                       <WeekdayForecast
                         forecastDate={valid_date}
                         src={`https://www.weatherbit.io/static/img/icons/${weather.icon}.png`}
-                        hiTemp={`${Math.round(high_temp * 9) / 5 + 32}`}
-                        loTemp={`${Math.round(min_temp * 9) / 5 + 32}`}
+                        hiTemp={`${Math.round((high_temp * 9) / 5 + 32)}`}
+                        loTemp={`${Math.round((min_temp * 9) / 5 + 32)}`}
                       />
                     </Card.Body>
                   </Card>
